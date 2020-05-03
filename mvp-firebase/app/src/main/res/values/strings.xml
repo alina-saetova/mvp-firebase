@@ -12,4 +12,10 @@
     <string name="send_code">send code</string>
     <string name="sign_in_with_phone">Sign in with phone</string>
     <string name="sign_in">sign in</string>
+    <string name="btnTitleLogin">login</string>
+    <string name="btnTitleSignUp">sign up</string>
+    <string name="sign_in_with_email">Sign in with email</string>
+    <string name="hint_email">email</string>
+    <string name="hint_password">password</string>
+    <string name="tv_registration">Registration</string>
 </resources>

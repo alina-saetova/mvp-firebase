@@ -12,11 +12,11 @@
             android:id="@+id/action_chooseWayFragment_to_emailAuthFragment"
             app:destination="@id/emailAuthFragment" />
         <action
-            android:id="@+id/action_chooseWayFragment_to_googleAuthFragment"
-            app:destination="@id/googleAuthFragment" />
-        <action
             android:id="@+id/action_chooseWayFragment_to_phoneAuthFragment"
             app:destination="@id/phoneAuthFragment" />
+        <action
+            android:id="@+id/action_chooseWayFragment_to_userDataFragment"
+            app:destination="@id/userDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailAuthFragment"
@@ -27,15 +27,6 @@
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_emailAuthFragment_to_userDataFragment"
-            app:destination="@id/userDataFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/googleAuthFragment"
-        android:name="ru.itis.mvp_firebase.GoogleAuthFragment"
-        android:label="fragment_google_auth"
-        tools:layout="@layout/fragment_google_auth" >
-        <action
-            android:id="@+id/action_googleAuthFragment_to_userDataFragment"
             app:destination="@id/userDataFragment" />
     </fragment>
     <fragment

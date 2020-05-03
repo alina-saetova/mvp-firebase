@@ -59,12 +59,21 @@
 <!--            android:text="@string/send_code"-->
 <!--            android:layout_marginTop="20dp"/>-->
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignIn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 </layout>

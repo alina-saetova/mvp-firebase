@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.FirebaseException
@@ -34,7 +35,6 @@ class PhoneAuthFragment : Fragment() {
         binding = FragmentPhoneAuthBinding.inflate(inflater)
 
         binding.btnSignIn.setOnClickListener(sendCodeClickListener)
-//        binding.btnSignIn.setOnClickListener{verifyPhoneNumberWithCode(binding.etCode.text.toString())}
         return binding.root
     }
 
@@ -69,21 +69,17 @@ class PhoneAuthFragment : Fragment() {
             }
         }
 
-    private fun verifyPhoneNumberWithCode(code: String) {
-        val credential = PhoneAuthProvider.getCredential(mVerificationId, code)
-        signInWithPhoneAuthCredential(credential)
-    }
-
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        binding.progressBar.visibility = View.VISIBLE
         activity?.let {
             firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(activity, "SUCCESS", Toast.LENGTH_LONG).show()
                         findNavController().navigate(R.id.action_phoneAuthFragment_to_userDataFragment)
                     } else {
-                        Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, "FAILED", Toast.LENGTH_LONG).show()
                     }
+                    binding.progressBar.visibility = View.GONE
                 }
         }
     }

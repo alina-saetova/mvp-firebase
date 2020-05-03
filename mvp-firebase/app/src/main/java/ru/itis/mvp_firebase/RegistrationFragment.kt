@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import ru.itis.mvp_firebase.databinding.FragmentRegistrationBinding
@@ -25,14 +26,16 @@ class RegistrationFragment : Fragment() {
         binding.btnSignUp.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
+
+            binding.progressBar.visibility = View.VISIBLE
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(activity, "SUCCESS", Toast.LENGTH_LONG).show()
                     findNavController().navigateUp()
                 }
                 else {
                     Toast.makeText(activity, "FAILED", Toast.LENGTH_LONG).show()
                 }
+                binding.progressBar.visibility = View.GONE
             }
         }
         return binding.root
