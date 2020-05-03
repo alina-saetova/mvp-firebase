@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/chooseWayFragment">
+    <fragment
+        android:id="@+id/chooseWayFragment"
+        android:name="ru.itis.mvp_firebase.ChooseWayFragment"
+        android:label="ChooseWayFragment" >
+        <action
+            android:id="@+id/action_chooseWayFragment_to_emailAuthFragment"
+            app:destination="@id/emailAuthFragment" />
+        <action
+            android:id="@+id/action_chooseWayFragment_to_googleAuthFragment"
+            app:destination="@id/googleAuthFragment" />
+        <action
+            android:id="@+id/action_chooseWayFragment_to_phoneAuthFragment"
+            app:destination="@id/phoneAuthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailAuthFragment"
+        android:name="ru.itis.mvp_firebase.EmailAuthFragment"
+        android:label="EmailAuthFragment" >
+        <action
+            android:id="@+id/action_emailAuthFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_emailAuthFragment_to_userDataFragment"
+            app:destination="@id/userDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/googleAuthFragment"
+        android:name="ru.itis.mvp_firebase.GoogleAuthFragment"
+        android:label="fragment_google_auth"
+        tools:layout="@layout/fragment_google_auth" >
+        <action
+            android:id="@+id/action_googleAuthFragment_to_userDataFragment"
+            app:destination="@id/userDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneAuthFragment"
+        android:name="ru.itis.mvp_firebase.PhoneAuthFragment"
+        android:label="fragment_phone_auth"
+        tools:layout="@layout/fragment_phone_auth" >
+        <action
+            android:id="@+id/action_phoneAuthFragment_to_userDataFragment"
+            app:destination="@id/userDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="ru.itis.mvp_firebase.RegistrationFragment"
+        android:label="RegistrationFragment" />
+    <fragment
+        android:id="@+id/userDataFragment"
+        android:name="ru.itis.mvp_firebase.UserDataFragment"
+        android:label="UserDataFragment" />
+</navigation>

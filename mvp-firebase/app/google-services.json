@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "425029899353",
+    "firebase_url": "https://mvp-firebase-super.firebaseio.com",
+    "project_id": "mvp-firebase-super",
+    "storage_bucket": "mvp-firebase-super.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425029899353:android:a74b1020be39d008500d48",
+        "android_client_info": {
+          "package_name": "ru.itis.mvp_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425029899353-fm9brt850tmfv70odm47gvnppifnu2vo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDm7km4JXo9rgEm8JWEFSgkJovOV7QGMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425029899353-fm9brt850tmfv70odm47gvnppifnu2vo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

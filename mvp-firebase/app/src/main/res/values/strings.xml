@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">mvp-firebase</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_way">Choose a way to get in</string>
+    <string name="way_phone">Phone</string>
+    <string name="way_email">Email</string>
+    <string name="way_google_account">Google account</string>
+    <string name="phone_number">phone number</string>
+    <string name="code">code</string>
+    <string name="send_code">send code</string>
+    <string name="sign_in_with_phone">Sign in with phone</string>
+    <string name="sign_in">sign in</string>
 </resources>
