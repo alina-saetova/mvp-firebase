@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import ru.itis.mvp_firebase.databinding.FragmentRegistrationBinding
+import java.util.*
 
 class RegistrationFragment : Fragment() {
 
@@ -21,6 +22,7 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegistrationBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.btnSignUp.setOnClickListener(signUp)
@@ -29,7 +31,7 @@ class RegistrationFragment : Fragment() {
 
     private val signUp = View.OnClickListener {
         if (!validateData()) {
-            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
         } else {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
@@ -40,7 +42,7 @@ class RegistrationFragment : Fragment() {
                     findNavController().navigateUp()
                 }
                 else {
-                    Toast.makeText(activity, "FAILED", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, ERROR_CREATE, Toast.LENGTH_LONG).show()
                 }
                 binding.progressBar.visibility = View.GONE
             }
@@ -50,14 +52,14 @@ class RegistrationFragment : Fragment() {
     private fun validateData(): Boolean {
         var valid = true
         if (binding.etEmail.text.isNullOrEmpty()) {
-            binding.etEmail.error = "Required"
+            binding.etEmail.error = ERROR_MSG
             valid = false
         }
         else {
             binding.etEmail.error = null
         }
         if (binding.etPassword.text.isNullOrEmpty()) {
-            binding.etPassword.error = "Required"
+            binding.etPassword.error = ERROR_MSG
             valid = false
         }
         else {
@@ -66,4 +68,9 @@ class RegistrationFragment : Fragment() {
         return valid
     }
 
+    companion object {
+        const val ERROR_VALIDATE = "Try again"
+        const val ERROR_MSG = "Required"
+        const val ERROR_CREATE = "Registration failed"
+    }
 }

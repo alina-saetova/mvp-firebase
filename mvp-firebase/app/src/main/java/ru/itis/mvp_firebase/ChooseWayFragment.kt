@@ -61,7 +61,7 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
                     if (task.isSuccessful) {
                         findNavController().navigate(R.id.action_chooseWayFragment_to_userDataFragment)
                     } else {
-                        Toast.makeText(activity, "Authentication Failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
                     }
                     binding.progressBar.visibility = View.GONE
                 }
@@ -76,7 +76,7 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Toast.makeText(activity, "Google sign in failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -91,5 +91,6 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
 
     companion object {
         private const val RC_SIGN_IN = 9001
+        const val ERROR_AUTH = "Authentication Failed"
     }
 }

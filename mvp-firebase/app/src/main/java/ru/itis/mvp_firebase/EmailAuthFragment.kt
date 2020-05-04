@@ -21,6 +21,7 @@ class EmailAuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmailAuthBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.btnSignUp.setOnClickListener {
@@ -34,7 +35,7 @@ class EmailAuthFragment : Fragment() {
 
     private val signIn = View.OnClickListener {
         if (!validateEmail() && !validatePassword()) {
-            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
         }
         else {
             val email = binding.etEmail.text.toString()
@@ -46,7 +47,7 @@ class EmailAuthFragment : Fragment() {
                     findNavController().navigate(R.id.action_emailAuthFragment_to_userDataFragment)
                 }
                 else {
-                    Toast.makeText(activity, "Login Failed", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, ERROR_LOGIN, Toast.LENGTH_LONG).show()
                 }
                 binding.progressBar.visibility = View.GONE
             }
@@ -55,16 +56,16 @@ class EmailAuthFragment : Fragment() {
 
     private val resetPassword = View.OnClickListener {
         if (!validateEmail()) {
-            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
         }
         else {
             val email = binding.etEmail.text.toString()
             firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(activity, "Password reset email was sent", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, EMAIL_SENT, Toast.LENGTH_LONG).show()
                 }
                 else {
-                    Toast.makeText(activity, "Failed, try again", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, ERROR_EMAIL_SENT, Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -72,7 +73,7 @@ class EmailAuthFragment : Fragment() {
 
     private fun validateEmail(): Boolean {
         return if (binding.etEmail.text.isNullOrEmpty()) {
-            binding.etEmail.error = "Required"
+            binding.etEmail.error = ERROR_MSG
             false
         } else {
             binding.etEmail.error = null
@@ -82,12 +83,20 @@ class EmailAuthFragment : Fragment() {
 
     private fun validatePassword(): Boolean {
         return if (binding.etPassword.text.isNullOrEmpty()) {
-            binding.etPassword.error = "Required"
+            binding.etPassword.error = ERROR_MSG
             false
         } else {
             binding.etPassword.error = null
             true
         }
+    }
+
+    companion object {
+        const val ERROR_VALIDATE = "Try again"
+        const val ERROR_MSG = "Required"
+        const val EMAIL_SENT = "Password reset email was sent"
+        const val ERROR_EMAIL_SENT = "Failed, try again"
+        const val ERROR_LOGIN = "Login Failed"
     }
 
 }

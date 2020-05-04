@@ -33,6 +33,7 @@ class PhoneAuthFragment : Fragment() {
     ): View? {
         firebaseAuth = FirebaseAuth.getInstance()
         binding = FragmentPhoneAuthBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.btnSignIn.setOnClickListener(sendCodeClickListener)
         return binding.root
@@ -41,7 +42,7 @@ class PhoneAuthFragment : Fragment() {
 
     private val sendCodeClickListener = View.OnClickListener {
         if (!validatePhone()) {
-            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
         } else {
             activity?.let { it1 ->
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -56,7 +57,7 @@ class PhoneAuthFragment : Fragment() {
 
     private fun validatePhone(): Boolean {
         return if (binding.etPhone.text.isNullOrEmpty()) {
-            binding.etPhone.error = "Required"
+            binding.etPhone.error = ERROR_MSG
             false
         } else {
             binding.etPhone.error = null
@@ -91,10 +92,16 @@ class PhoneAuthFragment : Fragment() {
                     if (task.isSuccessful) {
                         findNavController().navigate(R.id.action_phoneAuthFragment_to_userDataFragment)
                     } else {
-                        Toast.makeText(activity, "FAILED", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
                     }
                     binding.progressBar.visibility = View.GONE
                 }
         }
+    }
+
+    companion object {
+        const val ERROR_VALIDATE = "Try again"
+        const val ERROR_MSG = "Required"
+        const val ERROR_AUTH = "Authentication failed"
     }
 }

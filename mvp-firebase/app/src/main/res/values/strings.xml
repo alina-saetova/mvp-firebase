@@ -19,4 +19,6 @@
     <string name="hint_password">password</string>
     <string name="tv_registration">Registration</string>
     <string name="forgot_password">forgot password?</string>
+    <string name="note_text">text</string>
+    <string name="note_title">title</string>
 </resources>
