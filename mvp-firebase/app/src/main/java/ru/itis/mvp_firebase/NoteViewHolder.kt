@@ -6,8 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.itis.mvp_firebase.databinding.ItemNoteBinding
 
-class NoteViewHolder (val binding: ItemNoteBinding)
-    : RecyclerView.ViewHolder(binding.root) {
+class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(note: Note) {
         binding.note = note

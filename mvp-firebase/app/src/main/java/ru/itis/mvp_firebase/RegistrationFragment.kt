@@ -1,16 +1,14 @@
 package ru.itis.mvp_firebase
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import ru.itis.mvp_firebase.databinding.FragmentRegistrationBinding
-import java.util.*
 
 class RegistrationFragment : Fragment() {
 
@@ -40,8 +38,7 @@ class RegistrationFragment : Fragment() {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigateUp()
-                }
-                else {
+                } else {
                     Toast.makeText(activity, ERROR_CREATE, Toast.LENGTH_LONG).show()
                 }
                 binding.progressBar.visibility = View.GONE
@@ -54,15 +51,13 @@ class RegistrationFragment : Fragment() {
         if (binding.etEmail.text.isNullOrEmpty()) {
             binding.etEmail.error = ERROR_MSG
             valid = false
-        }
-        else {
+        } else {
             binding.etEmail.error = null
         }
         if (binding.etPassword.text.isNullOrEmpty()) {
             binding.etPassword.error = ERROR_MSG
             valid = false
-        }
-        else {
+        } else {
             binding.etPassword.error = null
         }
         return valid

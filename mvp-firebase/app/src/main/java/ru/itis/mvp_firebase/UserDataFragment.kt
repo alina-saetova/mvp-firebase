@@ -1,7 +1,6 @@
 package ru.itis.mvp_firebase
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,16 +64,17 @@ class UserDataFragment : Fragment() {
                     view.et_title.error = ERROR_MSG
                     view.et_content.error = ERROR_MSG
                 } else {
-                    val note = Note(UUID.randomUUID().toString(), user.uid, title.toString(), content.toString())
+                    val note = Note(
+                        UUID.randomUUID().toString(),
+                        user.uid,
+                        title.toString(),
+                        content.toString()
+                    )
                     database.child(note.id).setValue(note)
                 }
                 dialog.dismiss()
             }
             .show()
-    }
-
-    private val clickListener = {id: String ->
-        Toast.makeText(activity, id, Toast.LENGTH_LONG).show()
     }
 
     private val postListener = object : ValueEventListener {
@@ -86,6 +86,7 @@ class UserDataFragment : Fragment() {
             }
             adapter.update(list)
         }
+
         override fun onCancelled(databaseError: DatabaseError) {
 
         }

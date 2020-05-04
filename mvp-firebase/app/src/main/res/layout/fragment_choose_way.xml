@@ -50,5 +50,15 @@
             android:layout_marginTop="10dp"
             android:indeterminate="true"
             android:visibility="gone"/>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-6173249438439091/3161091326">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 </layout>

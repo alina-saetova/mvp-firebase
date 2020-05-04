@@ -1,12 +1,11 @@
 package ru.itis.mvp_firebase
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import ru.itis.mvp_firebase.databinding.FragmentEmailAuthBinding
@@ -36,8 +35,7 @@ class EmailAuthFragment : Fragment() {
     private val signIn = View.OnClickListener {
         if (!validateEmail() && !validatePassword()) {
             Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
-        }
-        else {
+        } else {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
@@ -45,8 +43,7 @@ class EmailAuthFragment : Fragment() {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_emailAuthFragment_to_userDataFragment)
-                }
-                else {
+                } else {
                     Toast.makeText(activity, ERROR_LOGIN, Toast.LENGTH_LONG).show()
                 }
                 binding.progressBar.visibility = View.GONE
@@ -57,14 +54,12 @@ class EmailAuthFragment : Fragment() {
     private val resetPassword = View.OnClickListener {
         if (!validateEmail()) {
             Toast.makeText(activity, ERROR_VALIDATE, Toast.LENGTH_LONG).show()
-        }
-        else {
+        } else {
             val email = binding.etEmail.text.toString()
             firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(activity, EMAIL_SENT, Toast.LENGTH_LONG).show()
-                }
-                else {
+                } else {
                     Toast.makeText(activity, ERROR_EMAIL_SENT, Toast.LENGTH_LONG).show()
                 }
             }
