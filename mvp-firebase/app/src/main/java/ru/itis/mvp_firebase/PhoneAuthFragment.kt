@@ -40,13 +40,27 @@ class PhoneAuthFragment : Fragment() {
 
 
     private val sendCodeClickListener = View.OnClickListener {
-        activity?.let { it1 ->
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                binding.etPhone.text.toString(),
-                60,
-                TimeUnit.SECONDS,
-                it1,
-                mCallbacks)
+        if (!validatePhone()) {
+            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+        } else {
+            activity?.let { it1 ->
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    binding.etPhone.text.toString(),
+                    60,
+                    TimeUnit.SECONDS,
+                    it1,
+                    mCallbacks)
+            }
+        }
+    }
+
+    private fun validatePhone(): Boolean {
+        return if (binding.etPhone.text.isNullOrEmpty()) {
+            binding.etPhone.error = "Required"
+            false
+        } else {
+            binding.etPhone.error = null
+            true
         }
     }
 

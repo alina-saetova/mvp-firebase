@@ -26,8 +26,17 @@ class EmailAuthFragment : Fragment() {
         binding.btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_emailAuthFragment_to_registrationFragment)
         }
+        binding.btnSignIn.setOnClickListener(signIn)
+        binding.btnForgotPassword.setOnClickListener(resetPassword)
 
-        binding.btnSignIn.setOnClickListener {
+        return binding.root
+    }
+
+    private val signIn = View.OnClickListener {
+        if (!validateEmail() && !validatePassword()) {
+            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+        }
+        else {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
@@ -42,7 +51,43 @@ class EmailAuthFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         }
-        return binding.root
+    }
+
+    private val resetPassword = View.OnClickListener {
+        if (!validateEmail()) {
+            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+        }
+        else {
+            val email = binding.etEmail.text.toString()
+            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(activity, "Password reset email was sent", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(activity, "Failed, try again", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        return if (binding.etEmail.text.isNullOrEmpty()) {
+            binding.etEmail.error = "Required"
+            false
+        } else {
+            binding.etEmail.error = null
+            true
+        }
+    }
+
+    private fun validatePassword(): Boolean {
+        return if (binding.etPassword.text.isNullOrEmpty()) {
+            binding.etPassword.error = "Required"
+            false
+        } else {
+            binding.etPassword.error = null
+            true
+        }
     }
 
 }

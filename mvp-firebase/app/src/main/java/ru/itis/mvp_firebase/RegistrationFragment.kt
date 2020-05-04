@@ -23,7 +23,14 @@ class RegistrationFragment : Fragment() {
         binding = FragmentRegistrationBinding.inflate(inflater)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener(signUp)
+        return binding.root
+    }
+
+    private val signUp = View.OnClickListener {
+        if (!validateData()) {
+            Toast.makeText(activity, "Try again", Toast.LENGTH_LONG).show()
+        } else {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
@@ -38,7 +45,25 @@ class RegistrationFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         }
-        return binding.root
+    }
+
+    private fun validateData(): Boolean {
+        var valid = true
+        if (binding.etEmail.text.isNullOrEmpty()) {
+            binding.etEmail.error = "Required"
+            valid = false
+        }
+        else {
+            binding.etEmail.error = null
+        }
+        if (binding.etPassword.text.isNullOrEmpty()) {
+            binding.etPassword.error = "Required"
+            valid = false
+        }
+        else {
+            binding.etPassword.error = null
+        }
+        return valid
     }
 
 }

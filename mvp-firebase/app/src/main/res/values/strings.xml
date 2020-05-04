@@ -18,4 +18,5 @@
     <string name="hint_email">email</string>
     <string name="hint_password">password</string>
     <string name="tv_registration">Registration</string>
+    <string name="forgot_password">forgot password?</string>
 </resources>
