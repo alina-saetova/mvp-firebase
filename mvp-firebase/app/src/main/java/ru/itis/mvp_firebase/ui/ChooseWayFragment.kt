@@ -1,40 +1,52 @@
-package ru.itis.mvp_firebase
+package ru.itis.mvp_firebase.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.crashlytics.android.Crashlytics
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
+import ru.itis.mvp_firebase.R
 import ru.itis.mvp_firebase.databinding.FragmentChooseWayBinding
+import ru.itis.mvp_firebase.di.App
+import ru.itis.mvp_firebase.presenter.ChooseWayPresenter
+import ru.itis.mvp_firebase.ui.view.ChooseWayView
+import javax.inject.Inject
+import javax.inject.Provider
 
 
-class ChooseWayFragment : Fragment(), View.OnClickListener {
+class ChooseWayFragment : MvpAppCompatFragment(), ChooseWayView {
 
     private lateinit var binding: FragmentChooseWayBinding
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var firebaseAuth: FirebaseAuth
+
+    @Inject
+    lateinit var presenterProvider: Provider<ChooseWayPresenter>
+
+    private val presenter by moxyPresenter {
+        presenterProvider.get()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.injectChooseWayFragment(this)
         super.onCreate(savedInstanceState)
         MobileAds.initialize(activity)
+        setHasOptionsMenu(true)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChooseWayBinding.inflate(inflater)
-
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
@@ -43,10 +55,30 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.crash -> Crashlytics.getInstance().crash()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setOnClickListeners() {
-        binding.btnPhone.setOnClickListener(this)
-        binding.btnEmail.setOnClickListener(this)
-        binding.btnGoogle.setOnClickListener(this)
+        binding.btnPhone.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_chooseWayFragment_to_phoneAuthFragment
+            )
+        }
+        binding.btnEmail.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_chooseWayFragment_to_emailAuthFragment
+            )
+        }
+        binding.btnGoogle.setOnClickListener { signIn() }
     }
 
     private fun configureGoogleClient() {
@@ -55,28 +87,12 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this.requireActivity(), gso)
-        firebaseAuth = FirebaseAuth.getInstance()
     }
 
     private fun signIn() {
-        binding.progressBar.visibility = View.VISIBLE
+        showLoading()
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        activity?.let {
-            firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(it) { task ->
-                    if (task.isSuccessful) {
-                        findNavController().navigate(R.id.action_chooseWayFragment_to_userDataFragment)
-                    } else {
-                        Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
-                    }
-                    binding.progressBar.visibility = View.GONE
-                }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -85,19 +101,27 @@ class ChooseWayFragment : Fragment(), View.OnClickListener {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
+                account.idToken?.let { presenter.authWithGoogle(it) }
             } catch (e: ApiException) {
-                Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
+                showError()
             }
         }
     }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.btnPhone -> findNavController().navigate(R.id.action_chooseWayFragment_to_phoneAuthFragment)
-            R.id.btnEmail -> findNavController().navigate(R.id.action_chooseWayFragment_to_emailAuthFragment)
-            R.id.btnGoogle -> signIn()
-        }
+    override fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    override fun showError() {
+        Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
+    }
+
+    override fun navigateToUserData() {
+        findNavController().navigate(R.id.action_chooseWayFragment_to_userDataFragment)
     }
 
     companion object {

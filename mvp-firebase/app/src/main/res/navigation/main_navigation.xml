@@ -6,7 +6,7 @@
     app:startDestination="@id/chooseWayFragment">
     <fragment
         android:id="@+id/chooseWayFragment"
-        android:name="ru.itis.mvp_firebase.ChooseWayFragment"
+        android:name="ru.itis.mvp_firebase.ui.ChooseWayFragment"
         android:label="ChooseWayFragment" >
         <action
             android:id="@+id/action_chooseWayFragment_to_emailAuthFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailAuthFragment"
-        android:name="ru.itis.mvp_firebase.EmailAuthFragment"
+        android:name="ru.itis.mvp_firebase.ui.EmailAuthFragment"
         android:label="EmailAuthFragment" >
         <action
             android:id="@+id/action_emailAuthFragment_to_registrationFragment"
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/phoneAuthFragment"
-        android:name="ru.itis.mvp_firebase.PhoneAuthFragment"
+        android:name="ru.itis.mvp_firebase.ui.PhoneAuthFragment"
         android:label="fragment_phone_auth"
         tools:layout="@layout/fragment_phone_auth" >
         <action
@@ -40,10 +40,14 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="ru.itis.mvp_firebase.RegistrationFragment"
+        android:name="ru.itis.mvp_firebase.ui.RegistrationFragment"
         android:label="RegistrationFragment" />
     <fragment
         android:id="@+id/userDataFragment"
-        android:name="ru.itis.mvp_firebase.UserDataFragment"
-        android:label="UserDataFragment" />
+        android:name="ru.itis.mvp_firebase.ui.UserDataFragment"
+        android:label="UserDataFragment" >
+        <action
+            android:id="@+id/action_userDataFragment_to_chooseWayFragment"
+            app:destination="@id/chooseWayFragment" />
+    </fragment>
 </navigation>

@@ -1,7 +1,8 @@
-package ru.itis.mvp_firebase
+package ru.itis.mvp_firebase.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.itis.mvp_firebase.data.Note
 
 class NoteAdapter(
     private var list: MutableList<Note> = emptyList<Note>().toMutableList()
@@ -20,5 +21,10 @@ class NoteAdapter(
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun setNote(note: Note) {
+        list.add(note)
+        notifyItemInserted(list.size - 1)
     }
 }

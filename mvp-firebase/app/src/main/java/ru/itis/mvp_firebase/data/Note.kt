@@ -1,4 +1,4 @@
-package ru.itis.mvp_firebase
+package ru.itis.mvp_firebase.data
 
 data class Note(
     val id: String = "",

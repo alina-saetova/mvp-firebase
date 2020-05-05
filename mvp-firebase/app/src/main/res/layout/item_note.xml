@@ -6,7 +6,7 @@
 
         <variable
             name="note"
-            type="ru.itis.mvp_firebase.Note" />
+            type="ru.itis.mvp_firebase.data.Note" />
     </data>
 
     <LinearLayout

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        tools:context=".EmailAuthFragment">
+        tools:context=".ui.EmailAuthFragment">
 
         <TextView
             android:id="@+id/textView2"
