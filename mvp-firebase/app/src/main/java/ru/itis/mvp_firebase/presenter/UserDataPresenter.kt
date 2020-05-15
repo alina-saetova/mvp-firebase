@@ -20,7 +20,7 @@ class UserDataPresenter @Inject constructor(
     private val noteRepository: NoteRepository
 ) : MvpPresenter<UserDataView>() {
 
-    private var user: FirebaseUser? = authRepository.getCurrentUser()
+    var user: FirebaseUser? = authRepository.getCurrentUser()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

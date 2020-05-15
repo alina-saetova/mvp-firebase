@@ -3,6 +3,8 @@ package ru.itis.mvp_firebase.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.itis.mvp_firebase.data.Note
 import java.util.*
 import javax.inject.Inject
@@ -15,14 +17,16 @@ class NoteRepositoryImpl @Inject constructor(
 ) : NoteRepository {
 
     override suspend fun addNote(title: String, content: String) {
-        firebaseAuth.currentUser?.uid?.let {
-            val note = Note(
-                UUID.randomUUID().toString(),
-                it,
-                title,
-                content
-            )
-            database.getReference("notes").child(it).child(note.id).setValue(note)
+        withContext(Dispatchers.IO) {
+            firebaseAuth.currentUser?.uid?.let {
+                val note = Note(
+                    UUID.randomUUID().toString(),
+                    it,
+                    title,
+                    content
+                )
+                database.getReference("notes").child(it).child(note.id).setValue(note)
+            }
         }
     }
 

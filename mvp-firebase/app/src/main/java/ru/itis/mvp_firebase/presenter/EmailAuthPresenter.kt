@@ -14,7 +14,7 @@ class EmailAuthPresenter @Inject constructor(
 ) : MvpPresenter<EmailAuthView>() {
 
     fun signIn(email: String, password: String) {
-        if (!validateEmail(email) && !validatePassword(password)) {
+        if (!validateEmail(email) || !validatePassword(password)) {
             viewState.showErrorToast(ERROR_VALIDATE)
         } else {
             viewState.showLoading()
