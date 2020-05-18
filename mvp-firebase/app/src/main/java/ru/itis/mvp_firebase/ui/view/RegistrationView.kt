@@ -11,7 +11,5 @@ interface RegistrationView : MvpView {
 
     fun showLoading()
     fun hideLoading()
-
-    fun navigateToLogin()
     fun showError()
 }

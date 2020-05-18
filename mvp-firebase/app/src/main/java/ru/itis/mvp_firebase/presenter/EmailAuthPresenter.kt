@@ -5,12 +5,15 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import moxy.presenterScope
 import ru.itis.mvp_firebase.data.repository.AuthRepository
+import ru.itis.mvp_firebase.navigation.Screens
 import ru.itis.mvp_firebase.ui.view.EmailAuthView
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class EmailAuthPresenter @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val router: Router
 ) : MvpPresenter<EmailAuthView>() {
 
     fun signIn(email: String, password: String) {
@@ -21,7 +24,7 @@ class EmailAuthPresenter @Inject constructor(
             presenterScope.launch {
                 val success = repository.authWithEmail(email, password)
                 if (success) {
-                    viewState.navigateToUserData()
+                    navigateToUserData()
                 } else {
                     viewState.showErrorToast(ERROR_LOGIN)
                     viewState.hideLoading()
@@ -64,6 +67,14 @@ class EmailAuthPresenter @Inject constructor(
         }
         viewState.setPasswordValid(valid)
         return valid
+    }
+
+    fun navigateToUserData() {
+        router.navigateTo(Screens.UserDataScreen)
+    }
+
+    fun navigateToRegistration() {
+        router.navigateTo(Screens.RegistrationScreen)
     }
 
     companion object {

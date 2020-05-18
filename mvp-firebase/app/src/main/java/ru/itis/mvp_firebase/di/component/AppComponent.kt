@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.itis.mvp_firebase.MainActivity
 import ru.itis.mvp_firebase.di.module.FirebaseModule
+import ru.itis.mvp_firebase.di.module.NavigationModule
 import ru.itis.mvp_firebase.di.module.RepositoryModule
 import ru.itis.mvp_firebase.ui.*
 import javax.inject.Singleton
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         RepositoryModule::class,
-        FirebaseModule::class
+        FirebaseModule::class,
+        NavigationModule::class
     ]
 )
 interface AppComponent {
@@ -32,5 +34,4 @@ interface AppComponent {
     fun injectEmailAuthFragment(emailAuthFragment: EmailAuthFragment)
     fun injectPhoneAuthFragment(phoneAuthFragment: PhoneAuthFragment)
     fun injectUserDataFragment(userDataFragment: UserDataFragment)
-
 }

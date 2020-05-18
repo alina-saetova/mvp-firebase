@@ -92,10 +92,6 @@ class UserDataFragment : MvpAppCompatFragment(), UserDataView {
         adapter.setNote(note)
     }
 
-    override fun navigateUp() {
-        findNavController().navigate(R.id.action_userDataFragment_to_chooseWayFragment)
-    }
-
     companion object {
         const val DIALOG_TITLE = "Add a note"
         const val DIALOG_CANCEL = "cancel"

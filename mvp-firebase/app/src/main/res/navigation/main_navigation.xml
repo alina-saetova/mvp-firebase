@@ -3,51 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/chooseWayFragment">
+    app:startDestination="@id/navigation_home">
+
+    <include app:graph="@navigation/home_nested_graph" />
+
     <fragment
-        android:id="@+id/chooseWayFragment"
-        android:name="ru.itis.mvp_firebase.ui.ChooseWayFragment"
-        android:label="ChooseWayFragment" >
+        android:id="@+id/navigation_home"
+        android:name="ru.itis.mvp_firebase.ui.HomeFragment"
+        android:label="HomeFragment">
         <action
-            android:id="@+id/action_chooseWayFragment_to_emailAuthFragment"
-            app:destination="@id/emailAuthFragment" />
-        <action
-            android:id="@+id/action_chooseWayFragment_to_phoneAuthFragment"
-            app:destination="@id/phoneAuthFragment" />
-        <action
-            android:id="@+id/action_chooseWayFragment_to_userDataFragment"
-            app:destination="@id/userDataFragment" />
+            android:id="@+id/home_to_nested_graph"
+            app:destination="@id/home_nested_graph" />
     </fragment>
     <fragment
-        android:id="@+id/emailAuthFragment"
-        android:name="ru.itis.mvp_firebase.ui.EmailAuthFragment"
-        android:label="EmailAuthFragment" >
+        android:id="@+id/navigation_dashboard"
+        android:name="ru.itis.mvp_firebase.ui.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_emailAuthFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_emailAuthFragment_to_userDataFragment"
-            app:destination="@id/userDataFragment" />
+            android:id="@+id/action_navigation_dashboard_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
     <fragment
-        android:id="@+id/phoneAuthFragment"
-        android:name="ru.itis.mvp_firebase.ui.PhoneAuthFragment"
-        android:label="fragment_phone_auth"
-        tools:layout="@layout/fragment_phone_auth" >
-        <action
-            android:id="@+id/action_phoneAuthFragment_to_userDataFragment"
-            app:destination="@id/userDataFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="ru.itis.mvp_firebase.ui.RegistrationFragment"
-        android:label="RegistrationFragment" />
-    <fragment
-        android:id="@+id/userDataFragment"
-        android:name="ru.itis.mvp_firebase.ui.UserDataFragment"
-        android:label="UserDataFragment" >
-        <action
-            android:id="@+id/action_userDataFragment_to_chooseWayFragment"
-            app:destination="@id/chooseWayFragment" />
-    </fragment>
+        android:id="@+id/navigation_notifications"
+        android:name="ru.itis.mvp_firebase.ui.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="ru.itis.mvp_firebase.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

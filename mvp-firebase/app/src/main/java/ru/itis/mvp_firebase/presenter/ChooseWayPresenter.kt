@@ -6,12 +6,15 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import moxy.presenterScope
 import ru.itis.mvp_firebase.data.repository.AuthRepository
+import ru.itis.mvp_firebase.navigation.Screens
 import ru.itis.mvp_firebase.ui.view.ChooseWayView
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class ChooseWayPresenter @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val router: Router
 ) : MvpPresenter<ChooseWayView>() {
 
     fun authWithGoogle(idToken: String) {
@@ -19,11 +22,27 @@ class ChooseWayPresenter @Inject constructor(
         presenterScope.launch {
             val success = repository.authWithGoogle(credential)
             if (success) {
-                viewState.navigateToUserData()
+                navigateToUserData()
             } else {
                 viewState.showError()
                 viewState.hideLoading()
             }
         }
+    }
+
+    private fun navigateToUserData() {
+        router.navigateTo(Screens.UserDataScreen)
+    }
+
+    fun navigateToEmailAuth() {
+        router.navigateTo(Screens.EmailAuthScreen)
+    }
+
+    fun navigateToPhoneAuth() {
+        router.navigateTo(Screens.PhoneAuthScreen)
+    }
+
+    fun navigateToNavComp() {
+        router.navigateTo(Screens.NavCompScreen)
     }
 }

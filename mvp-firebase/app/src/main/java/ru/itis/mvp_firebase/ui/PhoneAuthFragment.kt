@@ -63,10 +63,6 @@ class PhoneAuthFragment : MvpAppCompatFragment(), PhoneAuthView {
         binding.progressBar.visibility = View.GONE
     }
 
-    override fun navigateToUserData() {
-        findNavController().navigate(R.id.action_phoneAuthFragment_to_userDataFragment)
-    }
-
     override fun showErrorToast(errorMsg: String) {
         Toast.makeText(activity, errorMsg, Toast.LENGTH_LONG).show()
     }

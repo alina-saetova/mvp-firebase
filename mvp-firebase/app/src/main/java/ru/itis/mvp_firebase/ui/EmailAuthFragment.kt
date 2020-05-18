@@ -43,7 +43,7 @@ class EmailAuthFragment : MvpAppCompatFragment(), EmailAuthView {
 
     private fun setOnClickListeners() {
         binding.btnSignUp.setOnClickListener {
-            findNavController().navigate(R.id.action_emailAuthFragment_to_registrationFragment)
+            presenter.navigateToRegistration()
         }
         binding.btnSignIn.setOnClickListener {
             presenter.signIn(
@@ -78,10 +78,6 @@ class EmailAuthFragment : MvpAppCompatFragment(), EmailAuthView {
 
     override fun hideLoading() {
         binding.progressBar.visibility = View.GONE
-    }
-
-    override fun navigateToUserData() {
-        findNavController().navigate(R.id.action_emailAuthFragment_to_userDataFragment)
     }
 
     override fun showErrorToast(errorMsg: String) {

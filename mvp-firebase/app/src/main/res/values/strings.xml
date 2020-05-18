@@ -21,4 +21,17 @@
     <string name="forgot_password">forgot password?</string>
     <string name="note_text">text</string>
     <string name="note_title">title</string>
+    <string name="btnNavComp">go to nav component</string>
+    <string name="title_activity_nav_comp">NavCompActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="tv_dashboard">it\'s dashboard</string>
+    <string name="tv_home">hoooome</string>
+    <string name="tv_notifications">oh, notifications</string>
+    <string name="next_screen">next screen</string>
+    <string name="tv_second_home_screen">home second screen</string>
+    <string name="tv_home_third_screen">it\'s home third screen</string>
+    <string name="btn_back_to_mvp">back to mvp</string>
+    <string name="btn_back">back</string>
 </resources>

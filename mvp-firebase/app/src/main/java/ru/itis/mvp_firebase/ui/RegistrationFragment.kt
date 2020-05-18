@@ -73,10 +73,6 @@ class RegistrationFragment : MvpAppCompatFragment(), RegistrationView {
         binding.progressBar.visibility = View.GONE
     }
 
-    override fun navigateToLogin() {
-        findNavController().navigateUp()
-    }
-
     override fun showError() {
         Toast.makeText(activity, ERROR_CREATE, Toast.LENGTH_LONG).show()
     }

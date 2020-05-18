@@ -69,14 +69,13 @@ class ChooseWayFragment : MvpAppCompatFragment(), ChooseWayView {
 
     private fun setOnClickListeners() {
         binding.btnPhone.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_chooseWayFragment_to_phoneAuthFragment
-            )
+            presenter.navigateToPhoneAuth()
         }
         binding.btnEmail.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_chooseWayFragment_to_emailAuthFragment
-            )
+            presenter.navigateToEmailAuth()
+        }
+        binding.btnToNavComp.setOnClickListener {
+            presenter.navigateToNavComp()
         }
         binding.btnGoogle.setOnClickListener { signIn() }
     }
@@ -118,10 +117,6 @@ class ChooseWayFragment : MvpAppCompatFragment(), ChooseWayView {
 
     override fun showError() {
         Toast.makeText(activity, ERROR_AUTH, Toast.LENGTH_LONG).show()
-    }
-
-    override fun navigateToUserData() {
-        findNavController().navigate(R.id.action_chooseWayFragment_to_userDataFragment)
     }
 
     companion object {

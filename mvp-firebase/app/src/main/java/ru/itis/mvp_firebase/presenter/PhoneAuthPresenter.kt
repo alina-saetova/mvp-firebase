@@ -9,12 +9,15 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import moxy.presenterScope
 import ru.itis.mvp_firebase.data.repository.AuthRepository
+import ru.itis.mvp_firebase.navigation.Screens
 import ru.itis.mvp_firebase.ui.view.PhoneAuthView
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class PhoneAuthPresenter @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val router: Router
 ) : MvpPresenter<PhoneAuthView>() {
 
     fun sendCode(phoneNumber: String) {
@@ -50,7 +53,7 @@ class PhoneAuthPresenter @Inject constructor(
         presenterScope.launch {
             val success = repository.signInWithCredential(credential)
             if (success) {
-                viewState.navigateToUserData()
+                navigateToUserData()
             } else {
                 viewState.showErrorToast(ERROR_AUTH)
                 viewState.hideLoading()
@@ -65,6 +68,10 @@ class PhoneAuthPresenter @Inject constructor(
         }
         viewState.setPhoneValid(valid)
         return valid
+    }
+
+    private fun navigateToUserData() {
+        router.navigateTo(Screens.UserDataScreen)
     }
 
     companion object {

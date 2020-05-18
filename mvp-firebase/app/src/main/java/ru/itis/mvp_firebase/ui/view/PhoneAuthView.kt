@@ -10,7 +10,5 @@ interface PhoneAuthView : MvpView {
 
     fun showLoading()
     fun hideLoading()
-
-    fun navigateToUserData()
     fun showErrorToast(errorMsg: String)
 }

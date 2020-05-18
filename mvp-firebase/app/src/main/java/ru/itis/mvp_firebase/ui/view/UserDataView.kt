@@ -10,5 +10,4 @@ interface UserDataView : MvpView {
     fun updateList(list: MutableList<Note>)
     fun showErrorToast(errorMsg: String)
     fun setNote(note: Note)
-    fun navigateUp()
 }

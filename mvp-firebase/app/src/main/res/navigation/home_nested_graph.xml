@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nested_graph"
+    app:startDestination="@id/homeSecondScreenFragment">
+
+    <fragment
+        android:id="@+id/homeSecondScreenFragment"
+        android:name="ru.itis.mvp_firebase.ui.HomeSecondScreenFragment"
+        android:label="HomeSecondScreenFragment" >
+        <action
+            android:id="@+id/action_homeSecondScreenFragment_to_homeThirdScreenFragment"
+            app:destination="@id/homeThirdScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeThirdScreenFragment"
+        android:name="ru.itis.mvp_firebase.ui.HomeThirdScreenFragment"
+        android:label="HomeThirdScreenFragment">
+        <action
+            android:id="@+id/back_to_home"
+            app:destination="@id/main_navigation"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/main_navigation"/>
+        <argument
+            android:name="titleArg"
+            app:argType="string"
+            android:defaultValue="defaultTitle" />
+    </fragment>
+</navigation>

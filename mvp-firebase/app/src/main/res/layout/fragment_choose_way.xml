@@ -56,5 +56,13 @@
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6173249438439091/3161091326">
         </com.google.android.gms.ads.AdView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnToNavComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:text="@string/btnNavComp"/>
     </LinearLayout>
 </layout>

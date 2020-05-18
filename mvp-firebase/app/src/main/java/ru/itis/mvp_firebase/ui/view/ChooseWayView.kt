@@ -8,7 +8,5 @@ interface ChooseWayView : MvpView {
 
     fun showLoading()
     fun hideLoading()
-
-    fun navigateToUserData()
     fun showError()
 }

@@ -11,13 +11,16 @@ import moxy.presenterScope
 import ru.itis.mvp_firebase.data.Note
 import ru.itis.mvp_firebase.data.repository.AuthRepository
 import ru.itis.mvp_firebase.data.repository.NoteRepository
+import ru.itis.mvp_firebase.navigation.Screens
 import ru.itis.mvp_firebase.ui.view.UserDataView
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class UserDataPresenter @Inject constructor(
     private val authRepository: AuthRepository,
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val router: Router
 ) : MvpPresenter<UserDataView>() {
 
     var user: FirebaseUser? = authRepository.getCurrentUser()
@@ -25,7 +28,7 @@ class UserDataPresenter @Inject constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         if (user == null) {
-            viewState.navigateUp()
+            navigateUp()
         } else {
             noteRepository.addListener(postListener)
         }
@@ -39,7 +42,7 @@ class UserDataPresenter @Inject constructor(
 
     fun signOut() {
         authRepository.signOut()
-        viewState.navigateUp()
+        navigateUp()
     }
 
     private val postListener = object : ValueEventListener {
@@ -55,6 +58,10 @@ class UserDataPresenter @Inject constructor(
         override fun onCancelled(databaseError: DatabaseError) {
             viewState.showErrorToast(ERROR_FETCH)
         }
+    }
+
+    private fun navigateUp() {
+        router.backTo(Screens.ChooseWayScreen)
     }
 
     companion object {
